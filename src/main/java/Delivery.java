@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
  * Class for imitating a work of delivery service with calculating a final cost by delivery parameters
  */
 public class Delivery {
+    public static final double MINIMUM_DELIVERY_AMOUNT = 400;
+
     private final int destinationDistance;
     private final CargoDimension cargoDimensions;
     private final boolean isFragile;
@@ -26,8 +28,7 @@ public class Delivery {
 
         double calculatedDeliveryCost = (getDestinationDistanceCostIncrease(this.destinationDistance) + this.cargoDimensions.getCostIncrease() + getFragileCostIncrease(this.isFragile)) * this.deliveryServiceWorkload.deliveryRate;
         DecimalFormat df = new DecimalFormat("###");
-        double minimumDeliveryAmount = 400;
-        return Math.max(Double.parseDouble(df.format(calculatedDeliveryCost)), minimumDeliveryAmount);
+        return Math.max(Double.parseDouble(df.format(calculatedDeliveryCost)), MINIMUM_DELIVERY_AMOUNT);
     }
 
     /**
