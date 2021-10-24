@@ -42,6 +42,20 @@ public class DeliveryCostCalculationTest {
     }
 
     @Test
+    @Tag("Positive")
+    void testExact30KmDistanceWithFragileOrderCost() {
+        Delivery delivery = new Delivery(30, CargoDimension.LARGE, true, ServiceWorkload.NORMAL);
+        assertEquals(700, delivery.calculateDeliveryCost());
+    }
+
+    @Test
+    @Tag("Positive")
+    void testExact2KmDistanceWithFragileOrderCost() {
+        Delivery delivery = new Delivery(2, CargoDimension.LARGE, true, ServiceWorkload.VERY_HIGH);
+        assertEquals(880, delivery.calculateDeliveryCost());
+    }
+
+    @Test
     @Tag("Negative")
     void test31KmDistanceFragileOrderCost() {
         Delivery delivery = new Delivery(35, CargoDimension.SMALL, true, ServiceWorkload.NORMAL);
