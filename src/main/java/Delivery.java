@@ -26,7 +26,7 @@ public class Delivery {
         if (this.isFragile && this.destinationDistance > 30)
             throw new UnsupportedOperationException("Fragile cargo cannot be delivered for the distance more than 30");
 
-        double calculatedDeliveryCost = (getDestinationDistanceCostIncrease(this.destinationDistance) + this.cargoDimensions.getCostIncrease() + getFragileCostIncrease(this.isFragile)) * this.deliveryServiceWorkload.deliveryRate;
+        double calculatedDeliveryCost = (getDestinationDistanceCostIncrease(this.destinationDistance) + this.cargoDimensions.getCostIncrease() + getFragileCostIncrease(this.isFragile)) * this.deliveryServiceWorkload.getDeliveryRate();
         DecimalFormat df = new DecimalFormat("###");
         return Math.max(Double.parseDouble(df.format(calculatedDeliveryCost)), MINIMUM_DELIVERY_AMOUNT);
     }
@@ -37,10 +37,9 @@ public class Delivery {
      * @return calculated cost
      */
     private int getDestinationDistanceCostIncrease(int destinationDistance) {
-        //for exact 30 there are no requirements, looks like a defect
-        if (destinationDistance >= 30) return 300;
-        if (destinationDistance >= 10) return 200;
-        if (destinationDistance >= 2) return 100;
+        if (destinationDistance > 30) return 300;
+        if (destinationDistance > 10) return 200;
+        if (destinationDistance > 2) return 100;
         if (destinationDistance >= 0) return 50;
         throw new IllegalArgumentException("destinationDistance should be a positive number!");
     }
